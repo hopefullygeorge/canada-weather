@@ -33,7 +33,7 @@
 } */
 
 .travelCard {
-  width: 400px;
+  width: 300px;
   height: auto;
   display: grid;
   grid-template-rows: 1fr auto auto;
@@ -42,6 +42,11 @@
   border-radius: 7%;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.184);
   position: relative;
+}
+
+.weatherIcon,
+.travelCard h2 {
+  transition: transform 0.3s linear;
 }
 
 .travelCard h2 {
@@ -55,7 +60,7 @@
 }
 
 .datePair .date {
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .weatherData {
@@ -81,4 +86,61 @@
 
 .weatherData .temp {
   font-size: 80px;
+}
+
+.travelCard:hover > .weatherIcon {
+  transform: scale(1.2) translate(40px, -20px);
+}
+
+.travelCard:hover > h2 {
+  transform: scale(1.2) translate(-40px, -20px);
+}
+
+.journeyForm {
+  background-color: pink;
+  width: 300px;
+  height: 150px;
+  padding: 10px;
+  border-radius: 7%;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.184);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.journeyForm #search {
+  width: 100%;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 25px;
+  padding: 5px;
+}
+
+.dateDiv {
+  display: flex;
+  justify-content: space-between;
+  height: 30%;
+}
+
+.dateDiv input {
+  cursor: pointer;
+  border-radius: 5px;
+  width: 125px;
+  height: 20px;
+  padding: 5px;
+}
+
+.journeyForm button {
+  width: 40%;
+  height: 30px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
 }

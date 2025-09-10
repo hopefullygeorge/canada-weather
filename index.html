@@ -9,25 +9,24 @@
   </head>
   <body>
     <div class="container">
-      <div class="travelCard">
-        <h2>VANCOUVER</h2>
-        <img
-          class="weatherIcon"
-          src="https://maps.gstatic.com/weather/v1/cloudy.svg"
-          alt=""
-        />
-        <div class="datePair">
-          <p>From:</p>
-          <p class="date">15-09-2025</p>
+      <template id="travelCardTemplate">
+        <div class="travelCard">
+          <h2></h2>
+          <img class="weatherIcon" src="" alt="" />
+          <div class="datePair">
+            <p>From:</p>
+            <p class="date"></p>
+          </div>
+          <div class="datePair">
+            <p>To:</p>
+            <p class="date"></p>
+          </div>
+          <div class="weatherData">
+            <p class="temp"></p>
+          </div>
         </div>
-        <div class="datePair">
-          <p>To:</p>
-          <p class="date">16-09-2025</p>
-        </div>
-        <div class="weatherData">
-          <p class="temp">14°C</p>
-        </div>
-      </div>
+      </template>
+      <div id="travelContainer"></div>
       <div class="travelCard">
         <h2>WHISTLER</h2>
         <img
@@ -47,8 +46,42 @@
           <p class="temp">12°C</p>
         </div>
       </div>
+      <form class="journeyForm" action="">
+        <div class="formPair">
+          <label for="search"></label>
+          <input
+            type="search"
+            id="search"
+            name="city_name"
+            placeholder="Enter city name here.."
+          />
+        </div>
+        <div class="dateDiv">
+          <div class="formPair">
+            <label for="start"></label>
+            <input
+              placeholder="Start Date"
+              type="date"
+              id="start"
+              name="start_date"
+            />
+          </div>
+          <div class="formPair">
+            <label for="end"></label>
+            <input
+              placeholder="End Date"
+              type="date"
+              id="end"
+              name="end_date"
+            />
+          </div>
+        </div>
+        <div class="bottom">
+          <button type="submit">Add Stop!</button>
+          <p id="latLon">Any data?</p>
+        </div>
+      </form>
     </div>
-
     <script type="module" src="/src/main.ts" defer></script>
   </body>
 </html>

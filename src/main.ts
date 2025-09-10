@@ -80,3 +80,89 @@ const myLocations = [
     end_date: "2025-09-16",
   },
 ];
+
+// ---------------------------- Geocoding API
+
+async function fetchGeoData(cityName: string) {
+  const limit = 1;
+  const apiKey = "e170c773f8338f3b8ac4cf90d4622143";
+  const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=${limit}&appid=${apiKey}`;
+
+  const response = await fetch(geoUrl);
+  if (!response.ok) {
+    throw new Error("Failed to retrieve geo data");
+  }
+
+  const data = await response.json();
+
+  // const geoLat = data[0].lat;
+  // const geoLon = data[0].lon;
+
+  return {
+    lat: data[0].lat,
+    lon: data[0].lon,
+    country: data[0].country,
+  };
+}
+
+// ---------------------------- Form Functions
+
+function createTravelCard(
+  cityName: string,
+  start: string,
+  end: string,
+  temp: number,
+  iconUrl: string
+  // weatherCode: number
+) {
+  const template = document.querySelector<HTMLTemplateElement>(
+    "#travelCardTemplate"
+  );
+  if (!template) throw new Error("Missing travel card template");
+
+  const clone = template.content.cloneNode(true) as DocumentFragment;
+
+  const card = clone.querySelector<HTMLDivElement>(".travelCard")!;
+  const titleEl = card.querySelector<HTMLHeadingElement>("h2")!;
+  const imgEl = card.querySelector<HTMLImageElement>(".weatherIcon")!;
+  const fromDateEl = card.querySelector<HTMLParagraphElement>(".fromDatePair")!;
+  const toDateEl = card.querySelector<HTMLParagraphElement>(".toDatePair")!;
+  const tempEl = card.querySelector<HTMLParagraphElement>(".temp")!;
+
+  titleEl.innerText = cityName.toUpperCase();
+  imgEl.src = iconUrl;
+  imgEl.alt = `Weather for ${cityName}`;
+  fromDateEl;
+  toDateEl.innerText = end;
+  tempEl.innerText = `${Math.round(temp)}°C`;
+
+  return clone;
+}
+
+const form = document.querySelector("form");
+
+form?.addEventListener("submit", async (e) => {
+  // prevents default html behaviour to submit the form and cause a page refresh
+  e.preventDefault();
+  const fd = new FormData(form);
+  const obj = Object.fromEntries(fd);
+  const city_name = obj.city_name.toString();
+
+  const { lat, lon, country } = await fetchGeoData(city_name);
+  console.log(lat, lon, city_name, country);
+});
+
+const container = document.querySelector<HTMLDivElement>("#travelContainer")!;
+if (container) {
+  const newCard = createTravelCard(
+    "Vancouver",
+    "15-09-2025",
+    "16-09-2025",
+    14,
+    "https://maps.gstatic.com/weather/v1/cloudy.svg"
+  );
+
+  container.appendChild(newCard);
+} else {
+  console.error("No container found!");
+}
