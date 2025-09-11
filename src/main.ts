@@ -1,7 +1,7 @@
 import fetchWeatherData from "./modules/weatherData";
-import fetchGeoData from "./modules/geoData";
+import { fetchGeoData } from "./modules/geoData";
+import { cleanPlaceName } from "./modules/geoData";
 import createTravelCard from "./modules/createCard";
-import { getWeatherIcon } from "./modules/weatherTable";
 
 // ----------------------------------------------------------------------------------------------------------------
 
@@ -28,7 +28,7 @@ form?.addEventListener("submit", async (e) => {
 
   if (container) {
     const newCard = createTravelCard(
-      geoObj.name,
+      cleanPlaceName(geoObj.name),
       geoObj.country,
       // This takes the date from 2025-09-11 -> dd-mm-yyyy
       start_date.replace(/T.*/, "").split("-").reverse().join("-"),

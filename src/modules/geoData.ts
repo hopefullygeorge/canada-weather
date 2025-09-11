@@ -1,4 +1,4 @@
-async function fetchGeoData(cityName: string) {
+export async function fetchGeoData(cityName: string) {
   const limit = 1;
   const apiKey = "e170c773f8338f3b8ac4cf90d4622143";
   const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=${limit}&appid=${apiKey}`;
@@ -10,8 +10,7 @@ async function fetchGeoData(cityName: string) {
 
   const data = await response.json();
 
-  // const geoLat = data[0].lat;
-  // const geoLon = data[0].lon;
+  console.log(data);
 
   return {
     name: data[0].name,
@@ -21,4 +20,15 @@ async function fetchGeoData(cityName: string) {
   };
 }
 
-export default fetchGeoData;
+export function cleanPlaceName(name: string): string {
+  return name
+    .replace(/ Resort Municipality$/i, "")
+    .replace(/ Municipality$/i, "")
+    .replace(/ City$/i, "")
+    .replace(/ County$/i, "")
+    .replace(/ District$/i, "")
+    .replace(/ Census Division$/i, "")
+    .trim();
+}
+
+// export default fetchGeoData;

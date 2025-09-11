@@ -1,6 +1,6 @@
 export const weatherIconMap: Record<number, string> = {
   // 0: Clear sky
-  0: "clear_alt.svg",
+  0: "sunny.svg",
 
   // 1,2,3: Mainly clear, partly cloudy, overcast
   1: "mostly_clear_alt.svg",

@@ -34,7 +34,7 @@
           </div>
         </div>
       </template>
-      <div class="travelCard">
+      <!-- <div class="travelCard">
         <h2>WHISTLER</h2>
         <h3>CANADA</h3>
         <img class="weatherIcon" src="/assets/sunny.svg" alt="" />
@@ -56,42 +56,41 @@
             <p class="lowTemp">18°C</p>
           </div>
         </div>
+      </div> -->
+      <div class="formWrapper">
+        <form class="journeyForm" action="">
+          <div class="formPair">
+            <label for="search"></label>
+            <input
+              type="search"
+              id="search"
+              name="city_name"
+              placeholder="Enter city name here.."
+            />
+          </div>
+          <div class="dateDiv">
+            <div class="formPair">
+              <label for="start"></label>
+              <input
+                placeholder="Start Date"
+                type="date"
+                id="start"
+                name="start_date"
+              />
+            </div>
+            <div class="formPair">
+              <label for="end"></label>
+              <input
+                placeholder="End Date"
+                type="date"
+                id="end"
+                name="end_date"
+              />
+            </div>
+          </div>
+          <button class="plusButton" type="submit"></button>
+        </form>
       </div>
-      <form class="journeyForm" action="">
-        <div class="formPair">
-          <label for="search"></label>
-          <input
-            type="search"
-            id="search"
-            name="city_name"
-            placeholder="Enter city name here.."
-          />
-        </div>
-        <div class="dateDiv">
-          <div class="formPair">
-            <label for="start"></label>
-            <input
-              placeholder="Start Date"
-              type="date"
-              id="start"
-              name="start_date"
-            />
-          </div>
-          <div class="formPair">
-            <label for="end"></label>
-            <input
-              placeholder="End Date"
-              type="date"
-              id="end"
-              name="end_date"
-            />
-          </div>
-        </div>
-        <div class="bottom">
-          <button type="submit">Add Stop!</button>
-          <p id="latLon">Any data?</p>
-        </div>
-      </form>
     </div>
     <script type="module" src="/src/main.ts" defer></script>
   </body>
