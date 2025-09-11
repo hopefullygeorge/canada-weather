@@ -27,7 +27,7 @@ form?.addEventListener("submit", async (e) => {
 
   if (container) {
     const newCard = createTravelCard(
-      city_name,
+      geoObj.name,
       start_date,
       end_date,
       weatherObj.temp,

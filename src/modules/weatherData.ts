@@ -54,6 +54,8 @@ async function fetchWeatherData(
     },
   };
 
+  console.log(weatherData);
+
   const hour = 11;
   const temp = weatherData.hourly.temperature_2m![hour];
   const humidity = weatherData.hourly.relative_humidity_2m![hour];

@@ -14,6 +14,7 @@ async function fetchGeoData(cityName: string) {
   // const geoLon = data[0].lon;
 
   return {
+    name: data[0].name,
     lat: data[0].lat,
     lon: data[0].lon,
     country: data[0].country,
