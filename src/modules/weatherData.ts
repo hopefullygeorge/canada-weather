@@ -9,11 +9,18 @@ async function fetchWeatherData(
   const params = {
     latitude: lat,
     longitude: lon,
-    hourly: ["temperature_2m", "relative_humidity_2m", "weather_code"],
+    daily: [
+      "temperature_2m_max",
+      "temperature_2m_min",
+      "weather_code",
+      "sunrise",
+      "sunset",
+    ],
     wind_speed_unit: "mph",
     start_date: start_date,
     end_date: end_date,
   };
+
   const url = "https://api.open-meteo.com/v1/forecast";
   const responses = await fetchWeatherApi(url, params);
 
@@ -32,39 +39,54 @@ async function fetchWeatherData(
     `\nTimezone difference to GMT+0: ${utcOffsetSeconds}s`
   );
 
-  const hourly = response.hourly()!;
+  const daily = response.daily()!;
+
+  const sunrise = daily.variables(3)!;
+  const sunset = daily.variables(4)!;
 
   // Note: The order of weather variables in the URL query and the indices below need to match!
   const weatherData = {
-    hourly: {
+    daily: {
       time: [
         ...Array(
-          (Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval()
+          (Number(daily.timeEnd()) - Number(daily.time())) / daily.interval()
         ),
       ].map(
         (_, i) =>
           new Date(
-            (Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) *
+            (Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) *
               1000
           )
       ),
-      temperature_2m: hourly.variables(0)!.valuesArray(),
-      relative_humidity_2m: hourly.variables(1)!.valuesArray(),
-      weather_code: hourly.variables(2)!.valuesArray(),
+      temperature_2m_max: daily.variables(0)!.valuesArray(),
+      temperature_2m_min: daily.variables(1)!.valuesArray(),
+      weather_code: daily.variables(2)!.valuesArray(),
+      // Map Int64 values to according structure
+      sunrise: [...Array(sunrise.valuesInt64Length())].map(
+        (_, i) =>
+          new Date((Number(sunrise.valuesInt64(i)) + utcOffsetSeconds) * 1000)
+      ),
+      // Map Int64 values to according structure
+      sunset: [...Array(sunset.valuesInt64Length())].map(
+        (_, i) =>
+          new Date((Number(sunset.valuesInt64(i)) + utcOffsetSeconds) * 1000)
+      ),
     },
   };
-
   console.log(weatherData);
 
-  const hour = 11;
-  const temp = weatherData.hourly.temperature_2m![hour];
-  const humidity = weatherData.hourly.relative_humidity_2m![hour];
-  const weatherCode = weatherData.hourly.weather_code![hour];
+  const highTemp = weatherData.daily.temperature_2m_max!;
+  const lowTemp = weatherData.daily.temperature_2m_min!;
+  const weatherCode = weatherData.daily.weather_code!;
+  const sunriseTime = weatherData.daily.sunrise;
+  const sunsetTime = weatherData.daily.sunset;
 
   return {
-    temp: temp,
-    humidity: humidity,
+    highTemp: highTemp,
+    lowTemp: lowTemp,
     weatherCode: weatherCode,
+    sunrise: sunriseTime,
+    sunset: sunsetTime,
   };
 }
 

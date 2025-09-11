@@ -12,37 +12,49 @@
       <template id="travelCardTemplate">
         <div class="travelCard">
           <h2></h2>
+          <h3></h3>
           <img class="weatherIcon" src="" alt="" />
           <div class="fromDatePair">
-            <p>From:</p>
-            <p class="date"></p>
+            <p class="fromP">From:</p>
+            <p class="fromDate"></p>
           </div>
           <div class="toDatePair">
-            <p>To:</p>
-            <p class="date"></p>
+            <p class="toP">To:</p>
+            <p class="toDate"></p>
           </div>
           <div class="weatherData">
-            <p class="temp"></p>
+            <div class="highTempPair">
+              <p class="highP">High:</p>
+              <p class="highTemp"></p>
+            </div>
+            <div class="lowTempPair">
+              <p class="lowP">Low:</p>
+              <p class="lowTemp"></p>
+            </div>
           </div>
         </div>
       </template>
       <div class="travelCard">
         <h2>WHISTLER</h2>
-        <img
-          class="weatherIcon"
-          src="https://maps.gstatic.com/weather/v1/mostly_sunny.svg"
-          alt=""
-        />
-        <div class="datePair">
-          <p>From:</p>
-          <p class="date">16-09-2025</p>
+        <h3>CANADA</h3>
+        <img class="weatherIcon" src="/assets/sunny.svg" alt="" />
+        <div class="fromDatePair">
+          <p class="fromP">From:</p>
+          <p class="fromDate">15-09-2025</p>
         </div>
-        <div class="datePair">
-          <p>To:</p>
-          <p class="date">18-09-2025</p>
+        <div class="toDatePair">
+          <p class="toP">To:</p>
+          <p class="toDate">16-09-2025</p>
         </div>
         <div class="weatherData">
-          <p class="temp">12°C</p>
+          <div class="highTempPair">
+            <p class="highP">High:</p>
+            <p class="highTemp">21°C</p>
+          </div>
+          <div class="lowTempPair">
+            <p class="lowP">Low:</p>
+            <p class="lowTemp">18°C</p>
+          </div>
         </div>
       </div>
       <form class="journeyForm" action="">

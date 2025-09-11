@@ -1,10 +1,15 @@
+import { getWeatherIcon } from "./weatherTable";
+
 function createTravelCard(
   cityName: string,
+  country: string,
   start: string,
   end: string,
-  temp: number,
-  iconUrl: string
-  // weatherCode: number
+  highTemp: number,
+  lowTemp: number,
+  sunrise: Date,
+  sunset: Date,
+  weatherCode: number
 ) {
   const template = document.querySelector<HTMLTemplateElement>(
     "#travelCardTemplate"
@@ -15,17 +20,41 @@ function createTravelCard(
 
   const card = clone.querySelector<HTMLDivElement>(".travelCard")!;
   const titleEl = card.querySelector<HTMLHeadingElement>("h2")!;
+  const h3TitleEl = card.querySelector<HTMLHeadingElement>("h3")!;
   const imgEl = card.querySelector<HTMLImageElement>(".weatherIcon")!;
-  const fromDateEl = card.querySelector<HTMLParagraphElement>(".fromDatePair")!;
-  const toDateEl = card.querySelector<HTMLParagraphElement>(".toDatePair")!;
-  const tempEl = card.querySelector<HTMLParagraphElement>(".temp")!;
+
+  const fromDateDiv = card.querySelector<HTMLDivElement>(".fromDatePair")!;
+  const fromLabel = card.querySelector<HTMLParagraphElement>(".fromP")!;
+  const fromDate = card.querySelector<HTMLParagraphElement>(".fromDate")!;
+
+  const toDateDiv = card.querySelector<HTMLDivElement>(".toDatePair")!;
+  const toLabel = card.querySelector<HTMLParagraphElement>(".toP")!;
+  const toDate = card.querySelector<HTMLParagraphElement>(".toDate")!;
+  const tempDiv = card.querySelector<HTMLDivElement>(".weatherData")!;
+
+  const highTempDiv = card.querySelector<HTMLDivElement>(".highTempPair")!;
+  const highLabel = card.querySelector<HTMLParagraphElement>(".highP")!;
+  const highTempP = card.querySelector<HTMLParagraphElement>(".highTemp")!;
+
+  const lowTempDiv = card.querySelector<HTMLDivElement>(".lowTempPair")!;
+  const lowLabel = card.querySelector<HTMLParagraphElement>(".lowP")!;
+  const lowTempP = card.querySelector<HTMLParagraphElement>(".lowTemp")!;
 
   titleEl.innerText = cityName.toUpperCase();
-  imgEl.src = iconUrl;
+  const regionNamesInEnglish = new Intl.DisplayNames(["en"], {
+    type: "region",
+  });
+  h3TitleEl.innerText = regionNamesInEnglish.of(country) ?? country;
+
+  // imgEl.src = "https://maps.gstatic.com/weather/v1/cloudy.svg";
+  imgEl.src = getWeatherIcon(weatherCode);
   imgEl.alt = `Weather for ${cityName}`;
-  fromDateEl.innerText = start;
-  toDateEl.innerText = end;
-  tempEl.innerText = `${Math.round(temp)}°C`;
+
+  fromDate.innerText = start;
+  toDate.innerText = end;
+
+  lowTempP.innerText = `${Math.round(lowTemp)}°C`;
+  highTempP.innerText = `${Math.round(highTemp)}°C`;
 
   return clone;
 }

@@ -1,6 +1,7 @@
 import fetchWeatherData from "./modules/weatherData";
 import fetchGeoData from "./modules/geoData";
 import createTravelCard from "./modules/createCard";
+import { getWeatherIcon } from "./modules/weatherTable";
 
 // ----------------------------------------------------------------------------------------------------------------
 
@@ -28,10 +29,16 @@ form?.addEventListener("submit", async (e) => {
   if (container) {
     const newCard = createTravelCard(
       geoObj.name,
-      start_date,
-      end_date,
-      weatherObj.temp,
-      "https://maps.gstatic.com/weather/v1/cloudy.svg"
+      geoObj.country,
+      // This takes the date from 2025-09-11 -> dd-mm-yyyy
+      start_date.replace(/T.*/, "").split("-").reverse().join("-"),
+      end_date.replace(/T.*/, "").split("-").reverse().join("-"),
+      // [0] represents the day of the array. i.e, if range is 7 days -> [0-6]
+      weatherObj.highTemp[0],
+      weatherObj.lowTemp[0],
+      weatherObj.sunrise[0],
+      weatherObj.sunset[0],
+      weatherObj.weatherCode[0]
     );
 
     container.appendChild(newCard);
