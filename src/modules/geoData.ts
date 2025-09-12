@@ -2,7 +2,7 @@ export async function fetchGeoData(cityName: string) {
   const tidyString = cityName.replace(/ /g, "+");
   const limit = 1;
   const apiKey = "e170c773f8338f3b8ac4cf90d4622143";
-  const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${tidyString}&limit=${limit}&appid=${apiKey}`;
+  const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${tidyString}&limit=${limit}&appid=${apiKey}`;
 
   console.log(tidyString);
 
