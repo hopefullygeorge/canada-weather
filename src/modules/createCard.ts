@@ -19,6 +19,7 @@ function createTravelCard(
   const clone = template.content.cloneNode(true) as DocumentFragment;
 
   const card = clone.querySelector<HTMLDivElement>(".travelCard")!;
+  const delBtnEl = card.querySelector<HTMLButtonElement>(".delBtn")!;
   const titleEl = card.querySelector<HTMLHeadingElement>("h2")!;
   const h3TitleEl = card.querySelector<HTMLHeadingElement>("h3")!;
   const imgEl = card.querySelector<HTMLImageElement>(".weatherIcon")!;
@@ -40,7 +41,13 @@ function createTravelCard(
   const lowLabel = card.querySelector<HTMLParagraphElement>(".lowP")!;
   const lowTempP = card.querySelector<HTMLParagraphElement>(".lowTemp")!;
 
+  delBtnEl.style.backgroundImage = "assets/UI/radix_cross-2.svg";
+
   titleEl.innerText = cityName.toUpperCase();
+  if (cityName.length > 15) {
+    titleEl.style.fontSize = "15px";
+  }
+
   const regionNamesInEnglish = new Intl.DisplayNames(["en"], {
     type: "region",
   });
@@ -55,6 +62,14 @@ function createTravelCard(
 
   lowTempP.innerText = `${Math.round(lowTemp)}°C`;
   highTempP.innerText = `${Math.round(highTemp)}°C`;
+
+  delBtnEl.addEventListener("click", () => {
+    const travelCard = delBtnEl.closest(".travelCard");
+    if (travelCard) {
+      travelCard.classList.add("removing");
+      setTimeout(() => travelCard.remove(), 300);
+    }
+  });
 
   return clone;
 }
