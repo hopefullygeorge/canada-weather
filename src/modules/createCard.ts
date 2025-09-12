@@ -41,6 +41,19 @@ function createTravelCard(
   const lowLabel = card.querySelector<HTMLParagraphElement>(".lowP")!;
   const lowTempP = card.querySelector<HTMLParagraphElement>(".lowTemp")!;
 
+  console.debug(
+    sunrise,
+    sunset,
+    fromDateDiv,
+    fromLabel,
+    toDateDiv,
+    toLabel,
+    tempDiv,
+    highTempDiv,
+    highLabel,
+    lowTempDiv,
+    lowLabel
+  );
   delBtnEl.style.backgroundImage = "assets/UI/radix_cross-2.svg";
 
   titleEl.innerText = cityName.toUpperCase();
